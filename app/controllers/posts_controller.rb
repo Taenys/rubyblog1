@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   def index
     # permet l'affichage de msg d'alerte seulement une fois
     # flash.now[:success] = "Salut"
-    @posts = Post.all
+    @posts = Post.online(0).all
     respond_to do |format|
       format.html
       format.json {render json: @posts}
@@ -48,7 +48,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:name, :content)
+    params.require(:post).permit(:name, :content, :slug)
   end
 
   def set_post

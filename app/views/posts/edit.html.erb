@@ -1,7 +1,33 @@
-<h1><%= @post.name %></h1>
+<h1>Editer l'article</h1>
 
-<p><%= @post.content %></p>
+<% if @post.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+      <%@post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+<% end %>
+<%= form_for @post do |f| %>
+    <div class="form-group">
+      <label>Titre de l'article</label>
+      <%= f.text_field :name, class: 'form-control' %>
 
-<p>
-  <a href="<%= posts_path %>" class="btn btn-primary">Retour aux articles</a>
-</p>
+    </div>
+
+    <div class="form-group">
+      <label>URL de l'article</label>
+      <%= f.text_field :slug, class: 'form-control' %>
+
+    </div>
+
+    <div class="form-group">
+      <label>Contenu de l'article</label>
+      <%= f.text_area :content, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Modifier l'article</button>
+    </div>
+    <% end %>
